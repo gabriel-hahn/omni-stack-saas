@@ -8,6 +8,18 @@ class Team extends Model {
       'App/Models/UserTeam'
     )
   }
+
+  static boot () {
+    super.boot()
+
+    this.addTrait('@provider:Lucid/Slugify', {
+      fields: {
+        slug: 'name'
+      },
+      strategy: 'dbIncrement',
+      disableUpdates: false
+    })
+  }
 }
 
 module.exports = Team
