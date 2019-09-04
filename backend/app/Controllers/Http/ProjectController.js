@@ -1,25 +1,40 @@
 'use strict'
 
 class ProjectController {
-  async index ({ request, response, view }) {
+  async index ({ request }) {
+    const projects = request.team.projects().fetch()
+
+    return projects
   }
 
-  async create ({ request, response, view }) {
+  async store ({ request }) {
+    const data = request.only(['title'])
+    const project = request.team.projects().create(data)
+
+    return project
   }
 
-  async store ({ request, response }) {
+  async show ({ params, request }) {
+    const project = await request.team.projects().where('id', params.id).first()
+
+    return project
   }
 
-  async show ({ params, request, response, view }) {
+  async update ({ params, request }) {
+    const data = request.only(['title'])
+    const project = await request.team.projects().where('id', params.id).first()
+
+    project.merge(data)
+
+    await project.save()
+
+    return project
   }
 
-  async edit ({ params, request, response, view }) {
-  }
+  async destroy ({ params, request }) {
+    const project = await request.team.projects().where('id', params.id).first()
 
-  async update ({ params, request, response }) {
-  }
-
-  async destroy ({ params, request, response }) {
+    await project.delete()
   }
 }
 
