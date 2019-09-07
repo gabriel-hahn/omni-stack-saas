@@ -1,7 +1,6 @@
 import React from 'react';
+import Routes from './routes';
 
-function App() {
-  return <div>Learn React</div>;
-}
+const App = () => <Routes />;
 
 export default App;
