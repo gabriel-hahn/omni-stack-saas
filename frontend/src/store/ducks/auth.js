@@ -10,13 +10,11 @@ export const AuthTypes = Types;
 export default Creators;
 
 const INITIAL_STATE = Immutable({
-  signedIn: false,
-  token: null,
+  signedIn: !!localStorage.getItem('@Omni:token'),
+  token: localStorage.getItem('@Omni:token') || null,
 });
 
-export const success = (state, { token }) => {
-  return state.merge({ signedIn: true, token });
-};
+export const success = (state, { token }) => state.merge({ signedIn: true, token });
 
 export const reducer = createReducer(INITIAL_STATE, {
   [Types.SIGN_IN_SUCCESS]: success,
