@@ -1,6 +1,6 @@
 # Omni Stack SaaS
 
-SaaS project to user management between projects and companies.
+SaaS project to user management between projects and companies. For this project was used NodeJS, ReactJS and React Native as base technologies, simulating team management application.
 
 ## Authors
 
