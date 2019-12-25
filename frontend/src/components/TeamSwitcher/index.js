@@ -14,6 +14,12 @@ class TeamSwitcher extends Component {
     getTeamsRequest();
   }
 
+  handleTeamSelect(team) {
+    const { selectTeam } = this.props;
+
+    selectTeam(team);
+  }
+
   render() {
     const { teams } = this.props;
 
@@ -21,7 +27,7 @@ class TeamSwitcher extends Component {
       <Container>
         <TeamList>
           {teams.data.map((team) => (
-            <Team key={team.id}>
+            <Team key={team.id} onClick={() => this.handleTeamSelect(team)}>
               <img alt={team.name} src={`https://ui-avatars.com/api/?font-size=0.33&background=7159c1&color=fff&name=${team.name}`} />
             </Team>
           ))}
@@ -33,6 +39,13 @@ class TeamSwitcher extends Component {
 
 TeamSwitcher.propTypes = {
   getTeamsRequest: PropTypes.func.isRequired,
+  selectTeam: PropTypes.func.isRequired,
+  teams: PropTypes.shape({
+    data: PropTypes.arrayOf(PropTypes.shape({
+      id: PropTypes.number,
+      name: PropTypes.string,
+    })),
+  }).isRequired,
 };
 
 const mapStateToProps = (state) => ({
