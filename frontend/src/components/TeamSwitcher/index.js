@@ -7,12 +7,14 @@ import Button from '~/styles/components/Button';
 import Modal from '~/components/Modal';
 
 import TeamsActions from '~/store/ducks/teams';
+import AuthActions from '~/store/ducks/auth';
 
 import {
   Container,
   TeamList,
   Team,
   NewTeam,
+  Logout,
 } from './styles';
 
 class TeamSwitcher extends Component {
@@ -46,7 +48,7 @@ class TeamSwitcher extends Component {
   }
 
   render() {
-    const { teams, openTeamModal, closeTeamModal } = this.props;
+    const { teams, openTeamModal, closeTeamModal, signOut } = this.props;
     const { newTeam } = this.state;
 
     return (
@@ -78,6 +80,8 @@ class TeamSwitcher extends Component {
             </Modal>
           )}
         </TeamList>
+
+        <Logout onClick={signOut}>Logout</Logout>
       </Container>
     );
   }
@@ -89,6 +93,7 @@ TeamSwitcher.propTypes = {
   openTeamModal: PropTypes.func.isRequired,
   closeTeamModal: PropTypes.func.isRequired,
   createTeamRequest: PropTypes.func.isRequired,
+  signOut: PropTypes.func.isRequired,
   teams: PropTypes.shape({
     teamModalOpen: PropTypes.bool.isRequired,
     data: PropTypes.arrayOf(PropTypes.shape({
@@ -102,6 +107,7 @@ const mapStateToProps = (state) => ({
   teams: state.teams,
 });
 
-const mapDispatchToProps = (dispatch) => bindActionCreators(TeamsActions, dispatch);
+const mapDispatchToProps = (dispatch) => (
+  bindActionCreators({ ...TeamsActions, ...AuthActions }, dispatch));
 
 export default connect(mapStateToProps, mapDispatchToProps)(TeamSwitcher);
