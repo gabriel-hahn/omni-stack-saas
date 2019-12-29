@@ -1,40 +1,50 @@
-import React from 'react';
+import React, { Component } from 'react';
+import { bindActionCreators } from 'redux';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
+
+import ProjectsActions from '~/store/ducks/projects';
 
 import Button from '~/styles/components/Button';
 
 import { Container, Project } from './styles';
 
-const Projects = ({ activeTeam }) => {
-  if (!activeTeam) return null;
+class Projects extends Component {
+  componentDidMount() {
+    const { activeTeam, getProjectsRequest } = this.props;
 
-  return (
-    <Container>
-      <header>
-        <h1>{activeTeam.name}</h1>
-        <div>
-          <Button onClick={() => { }}>+ New</Button>
-          <Button onClick={() => { }}>Members</Button>
-        </div>
-      </header>
+    if (activeTeam) {
+      getProjectsRequest();
+    }
+  }
 
-      <Project>
-        <p>Project example</p>
-      </Project>
+  render() {
+    const { activeTeam, projects } = this.props;
 
-      <Project>
-        <p>Project example</p>
-      </Project>
+    if (!activeTeam) return null;
 
-      <Project>
-        <p>Project example</p>
-      </Project>
-    </Container>
-  );
-};
+    return (
+      <Container>
+        <header>
+          <h1>{activeTeam.name}</h1>
+          <div>
+            <Button onClick={() => { }}>+ New</Button>
+            <Button onClick={() => { }}>Members</Button>
+          </div>
+        </header>
+
+        {projects.data.map((project) => (
+          <Project key={project.id}>
+            <p>{project.title}</p>
+          </Project>
+        ))}
+      </Container>
+    );
+  }
+}
 
 Projects.propTypes = {
+  getProjectsRequest: PropTypes.func.isRequired,
   activeTeam: PropTypes.shape({
     name: PropTypes.string,
   }).isRequired,
@@ -42,6 +52,9 @@ Projects.propTypes = {
 
 const mapStateToProps = (state) => ({
   activeTeam: state.teams.active,
+  projects: state.projects,
 });
 
-export default connect(mapStateToProps)(Projects);
+const mapDispatchToProps = (dispatch) => bindActionCreators(ProjectsActions, dispatch);
+
+export default connect(mapStateToProps, mapDispatchToProps)(Projects);
