@@ -1,8 +1,9 @@
 import React from 'react';
-import '~/config/StatusBarConfig';
-
+import { registerRootComponent } from 'expo';
 import { View } from 'react-native';
+
+import '~/config/StatusBarConfig';
 
 const Root = () => <View />;
 
-export default Root;
+export default registerRootComponent(Root);

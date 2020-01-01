@@ -5,7 +5,7 @@
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>
-	<string>mobile</string>
+	<string>SaaS mobile app</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -56,5 +56,27 @@
 			</dict>
 		</dict>
 	</dict>
+	<key>NSCalendarsUsageDescription</key>
+	<string>Allow SaaS mobile app to access your calendar</string>
+	<key>NSCameraUsageDescription</key>
+	<string>Allow SaaS mobile app to use the camera</string>
+	<key>NSContactsUsageDescription</key>
+	<string>Allow SaaS mobile app experiences to access your contacts</string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>Allow SaaS mobile app to use your location</string>
+	<key>NSLocationAlwaysUsageDescription</key>
+	<string>Allow SaaS mobile app to use your location</string>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>Allow SaaS mobile app to use your location</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>Allow SaaS mobile app to access your microphone</string>
+	<key>NSMotionUsageDescription</key>
+	<string>Allow SaaS mobile app to access your device's accelerometer</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>Give SaaS mobile app periences permission to save photos</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>Give SaaS mobile app periences permission to access your photos</string>
+	<key>NSRemindersUsageDescription</key>
+	<string>Allow SaaS mobile app to access your reminders</string>
 </dict>
 </plist>
