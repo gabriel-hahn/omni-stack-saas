@@ -11,6 +11,10 @@ import Button from '~/styles/components/Button';
 import { Container, Project } from './styles';
 
 class Projects extends Component {
+  state = {
+    newProject: '',
+  };
+
   componentDidMount() {
     const { activeTeam, getProjectsRequest } = this.props;
 
@@ -19,8 +23,22 @@ class Projects extends Component {
     }
   }
 
+  handleInputChange = (e) => {
+    this.setState({ [e.target.name]: e.target.value });
+  }
+
+  handleCreateProject = (e) => {
+    e.preventDefault();
+
+    const { createProjectRequest } = this.props;
+    const { newProject } = this.state;
+
+    createProjectRequest(newProject);
+  }
+
   render() {
     const { activeTeam, toggleProjectModal, projects } = this.props;
+    const { newProject } = this.state;
 
     if (!activeTeam) return null;
 
@@ -44,9 +62,9 @@ class Projects extends Component {
           <Modal>
             <h1>Create new project</h1>
 
-            <form onSubmit={() => { }}>
+            <form onSubmit={this.handleCreateProject}>
               <span>Name</span>
-              <input name="newProject" />
+              <input name="newProject" value={newProject} onChange={this.handleInputChange} />
 
               <Button size="big" type="submit">
                 Save
@@ -65,11 +83,12 @@ class Projects extends Component {
 Projects.propTypes = {
   getProjectsRequest: PropTypes.func.isRequired,
   toggleProjectModal: PropTypes.func.isRequired,
+  createProjectRequest: PropTypes.func.isRequired,
   projects: PropTypes.shape({
     projectModalOpen: PropTypes.bool.isRequired,
     data: PropTypes.arrayOf(PropTypes.shape({
-      id: PropTypes.number.isRequired,
-      title: PropTypes.string.isRequired,
+      id: PropTypes.number,
+      title: PropTypes.string,
     })).isRequired,
   }).isRequired,
   activeTeam: PropTypes.shape({
