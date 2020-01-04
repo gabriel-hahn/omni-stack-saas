@@ -4,7 +4,9 @@ import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 
 import ProjectsActions from '~/store/ducks/projects';
+import MembersActions from '~/store/ducks/members';
 
+import Members from '~/components/Members';
 import Modal from '~/components/Modal';
 import Button from '~/styles/components/Button';
 
@@ -37,8 +39,14 @@ class Projects extends Component {
   }
 
   render() {
-    const { activeTeam, toggleProjectModal, projects } = this.props;
     const { newProject } = this.state;
+    const {
+      activeTeam,
+      toggleProjectModal,
+      toggleMembersModal,
+      projects,
+      members,
+    } = this.props;
 
     if (!activeTeam) return null;
 
@@ -48,7 +56,7 @@ class Projects extends Component {
           <h1>{activeTeam.name}</h1>
           <div>
             <Button onClick={toggleProjectModal}>+ New</Button>
-            <Button onClick={() => { }}>Members</Button>
+            <Button onClick={toggleMembersModal}>Members</Button>
           </div>
         </header>
 
@@ -75,6 +83,10 @@ class Projects extends Component {
             </form>
           </Modal>
         )}
+
+        {members.membersModalOpen && (
+          <Members />
+        )}
       </Container>
     );
   }
@@ -83,7 +95,11 @@ class Projects extends Component {
 Projects.propTypes = {
   getProjectsRequest: PropTypes.func.isRequired,
   toggleProjectModal: PropTypes.func.isRequired,
+  toggleMembersModal: PropTypes.func.isRequired,
   createProjectRequest: PropTypes.func.isRequired,
+  members: PropTypes.shape({
+    membersModalOpen: PropTypes.bool.isRequired,
+  }).isRequired,
   projects: PropTypes.shape({
     projectModalOpen: PropTypes.bool.isRequired,
     data: PropTypes.arrayOf(PropTypes.shape({
@@ -98,9 +114,12 @@ Projects.propTypes = {
 
 const mapStateToProps = (state) => ({
   activeTeam: state.teams.active,
+  members: state.members,
   projects: state.projects,
 });
 
-const mapDispatchToProps = (dispatch) => bindActionCreators(ProjectsActions, dispatch);
+const mapDispatchToProps = (dispatch) => (
+  bindActionCreators({ ...ProjectsActions, ...MembersActions }, dispatch)
+);
 
 export default connect(mapStateToProps, mapDispatchToProps)(Projects);
