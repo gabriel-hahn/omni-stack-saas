@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
@@ -9,29 +9,47 @@ import Modal from '~/components/Modal';
 import Button from '~/styles/components/Button';
 import { MembersList } from './styles';
 
-const Members = ({ toggleMembersModal }) => (
-  <Modal size="big">
-    <h1>Members</h1>
+class Members extends Component {
+  componentDidMount() {
+    const { getMembersRequest } = this.props;
 
-    <form>
-      <MembersList>
-        <li>
-          <strong>Gabriel Hahn Schaeffer</strong>
+    getMembersRequest();
+  }
 
-        </li>
-      </MembersList>
+  render() {
+    const { toggleMembersModal, members } = this.props;
 
-      <Button onClick={toggleMembersModal} filled="false" color="grey">
-        Cancel
-      </Button>
-    </form>
-  </Modal>
-);
+    return (
+      <Modal size="big">
+        <h1>Members</h1>
+
+        <form>
+          <MembersList>
+            {members.data.map(member => (
+              <li key={member.id}>
+                <strong>{member.user.name}</strong>
+              </li>
+            ))}
+          </MembersList>
+
+          <Button onClick={toggleMembersModal} filled="false" color="grey">
+            Cancel
+          </Button>
+        </form>
+      </Modal>
+    );
+  }
+}
 
 Members.propTypes = {
   toggleMembersModal: PropTypes.func.isRequired,
+  getMembersRequest: PropTypes.func.isRequired,
 };
+
+const mapStateToProps = (state) => ({
+  members: state.members,
+});
 
 const mapDispatchToProps = (dispatch) => bindActionCreators(MembersActions, dispatch);
 
-export default connect(null, mapDispatchToProps)(Members);
+export default connect(mapStateToProps, mapDispatchToProps)(Members);
