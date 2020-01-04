@@ -9,10 +9,6 @@ import Button from '~/styles/components/Button';
 import { Container, SignForm } from '../styles';
 
 class SignIn extends Component {
-  static propTypes = {
-    signInRequest: PropTypes.func.isRequired,
-  };
-
   state = {
     email: '',
     password: ''
@@ -51,6 +47,10 @@ class SignIn extends Component {
     );
   }
 }
+
+SignIn.propTypes = {
+  signInRequest: PropTypes.func.isRequired,
+};
 
 const mapDispatchToProps = (dispatch) => bindActionCreators(AuthActions, dispatch);
 

@@ -17,7 +17,7 @@ const INITIAL_STATE = Immutable({
 
 export const success = (state, { token }) => state.merge({ signedIn: true, token });
 
-export const logout = (state) => state.mere({ signedIn: false, token: null });
+export const logout = (state) => state.merge({ signedIn: false, token: null });
 
 export const reducer = createReducer(INITIAL_STATE, {
   [Types.SIGN_IN_SUCCESS]: success,

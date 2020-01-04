@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 
 import ProjectsActions from '~/store/ducks/projects';
 
+import Modal from '~/components/Modal';
 import Button from '~/styles/components/Button';
 
 import { Container, Project } from './styles';
@@ -19,7 +20,7 @@ class Projects extends Component {
   }
 
   render() {
-    const { activeTeam, projects } = this.props;
+    const { activeTeam, toggleProjectModal, projects } = this.props;
 
     if (!activeTeam) return null;
 
@@ -28,7 +29,7 @@ class Projects extends Component {
         <header>
           <h1>{activeTeam.name}</h1>
           <div>
-            <Button onClick={() => { }}>+ New</Button>
+            <Button onClick={toggleProjectModal}>+ New</Button>
             <Button onClick={() => { }}>Members</Button>
           </div>
         </header>
@@ -38,6 +39,24 @@ class Projects extends Component {
             <p>{project.title}</p>
           </Project>
         ))}
+
+        {projects.projectModalOpen && (
+          <Modal>
+            <h1>Create new project</h1>
+
+            <form onSubmit={() => { }}>
+              <span>Name</span>
+              <input name="newProject" />
+
+              <Button size="big" type="submit">
+                Save
+              </Button>
+              <Button onClick={toggleProjectModal} size="small" color="grey">
+                Cancel
+              </Button>
+            </form>
+          </Modal>
+        )}
       </Container>
     );
   }
@@ -45,6 +64,14 @@ class Projects extends Component {
 
 Projects.propTypes = {
   getProjectsRequest: PropTypes.func.isRequired,
+  toggleProjectModal: PropTypes.func.isRequired,
+  projects: PropTypes.shape({
+    projectModalOpen: PropTypes.bool.isRequired,
+    data: PropTypes.arrayOf(PropTypes.shape({
+      id: PropTypes.number.isRequired,
+      title: PropTypes.string.isRequired,
+    })).isRequired,
+  }).isRequired,
   activeTeam: PropTypes.shape({
     name: PropTypes.string,
   }).isRequired,
