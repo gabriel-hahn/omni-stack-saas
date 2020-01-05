@@ -26,3 +26,20 @@ export function* updateMember({ id, roles }) {
     }));
   }
 }
+
+export function* inviteMember({ email }) {
+  try {
+    yield call(api.post, 'invites', { invites: [email] });
+    yield put(toastrActions.add({
+      type: 'success',
+      title: 'Member updated',
+      message: 'The member was updated successfully',
+    }));
+  } catch (err) {
+    yield put(toastrActions.add({
+      type: 'error',
+      title: 'Operation error',
+      message: 'We had some problem to update the member for you. Try again',
+    }));
+  }
+}

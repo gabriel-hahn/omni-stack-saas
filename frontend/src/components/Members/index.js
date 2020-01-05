@@ -9,10 +9,11 @@ import MembersActions from '~/store/ducks/members';
 
 import Modal from '~/components/Modal';
 import Button from '~/styles/components/Button';
-import { MembersList } from './styles';
+import { MembersList, Invite } from './styles';
 
 class Members extends Component {
   state = {
+    invite: '',
     roles: [],
   };
 
@@ -31,13 +32,31 @@ class Members extends Component {
     updateMembersRequest(id, roles);
   }
 
+  handleInputChange = (e) => {
+    this.setState({ [e.target.name]: e.target.value });
+  }
+
+  handleInvite = (e) => {
+    e.preventDefault();
+
+    const { inviteMemberRequest } = this.props;
+    const { invite } = this.state;
+
+    inviteMemberRequest(invite);
+  }
+
   render() {
     const { toggleMembersModal, members } = this.props;
-    const { roles } = this.state;
+    const { roles, invite } = this.state;
 
     return (
       <Modal size="big">
         <h1>Members</h1>
+
+        <Invite onSubmit={this.handleInvite}>
+          <input name="invite" placeholder="Invite to the team" value={invite} onChange={this.handleInputChange} />
+          <Button type="submit">Send</Button>
+        </Invite>
 
         <form>
           <MembersList>
@@ -69,12 +88,17 @@ Members.propTypes = {
   toggleMembersModal: PropTypes.func.isRequired,
   updateMembersRequest: PropTypes.func.isRequired,
   getMembersRequest: PropTypes.func.isRequired,
+  inviteMemberRequest: PropTypes.func.isRequired,
   members: PropTypes.shape({
     data: PropTypes.arrayOf(PropTypes.shape({
       id: PropTypes.number,
       user: PropTypes.shape({
         name: PropTypes.string,
       }),
+      roles: PropTypes.arrayOf(PropTypes.shape({
+        id: PropTypes.number,
+        name: PropTypes.string,
+      })),
     })).isRequired,
   }).isRequired,
 };

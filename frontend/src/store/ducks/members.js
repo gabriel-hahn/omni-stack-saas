@@ -6,6 +6,7 @@ const { Types, Creators } = createActions({
   getMembersRequest: null,
   getMembersSuccess: ['data'],
   updateMemberRequest: ['id', 'roles'],
+  inviteMemberRequest: ['email'],
 });
 
 export const MembersTypes = Types;
@@ -17,7 +18,7 @@ export const INITIAL_STATE = Immutable({
 });
 
 export const updateMember = (state, { id, roles }) => state.merge({
-  data: state.data.map((member) => (member.id === id) ? { ...member, roles } : member)
+  data: state.data.map((member) => (member.id === id ? { ...member, roles } : member)),
 });
 export const getSuccess = (state, { data }) => state.merge({ data });
 export const toggleMembersModal = (state) => (
