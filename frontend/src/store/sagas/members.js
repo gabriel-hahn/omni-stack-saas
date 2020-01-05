@@ -32,14 +32,14 @@ export function* inviteMember({ email }) {
     yield call(api.post, 'invites', { invites: [email] });
     yield put(toastrActions.add({
       type: 'success',
-      title: 'Member updated',
-      message: 'The member was updated successfully',
+      title: 'Invitation sent',
+      message: 'We sent an email to the user to join the team',
     }));
   } catch (err) {
     yield put(toastrActions.add({
       type: 'error',
       title: 'Operation error',
-      message: 'We had some problem to update the member for you. Try again',
+      message: 'We had some problem to invite the member for you. Try again',
     }));
   }
 }

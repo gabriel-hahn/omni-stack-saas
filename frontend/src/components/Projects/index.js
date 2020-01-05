@@ -109,7 +109,11 @@ Projects.propTypes = {
   }).isRequired,
   activeTeam: PropTypes.shape({
     name: PropTypes.string,
-  }).isRequired,
+  }),
+};
+
+Projects.defaultProps = {
+  activeTeam: null,
 };
 
 const mapStateToProps = (state) => ({
