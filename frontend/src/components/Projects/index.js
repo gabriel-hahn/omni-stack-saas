@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 import ProjectsActions from '~/store/ducks/projects';
 import MembersActions from '~/store/ducks/members';
 
+import Can from '~/components/Can';
 import Members from '~/components/Members';
 import Modal from '~/components/Modal';
 import Button from '~/styles/components/Button';
@@ -55,7 +56,9 @@ class Projects extends Component {
         <header>
           <h1>{activeTeam.name}</h1>
           <div>
-            <Button onClick={toggleProjectModal}>+ New</Button>
+            <Can checkPermission="projects_create">
+              <Button onClick={toggleProjectModal}>+ New</Button>
+            </Can>
             <Button onClick={toggleMembersModal}>Members</Button>
           </div>
         </header>
