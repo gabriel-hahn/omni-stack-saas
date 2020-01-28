@@ -4,12 +4,12 @@ import { registerRootComponent } from 'expo';
 
 import '~/config/StatusBarConfig';
 
-import Routes from './routes';
 import store from './store';
+import App from './App';
 
 const Root = () => (
   <Provider store={store}>
-    <Routes />
+    <App />
   </Provider>
 );
 
