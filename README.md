@@ -2,9 +2,9 @@
 
 SaaS project to user management between projects and companies. For this project was used NodeJS, ReactJS and React Native as base technologies, simulating team management application.
 
-## Demo
+### Web
 
-You can access this project here. Feel free to create an account and manage your team!
+### Mobile
 
 ## Authors
 
