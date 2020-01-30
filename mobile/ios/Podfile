@@ -43,4 +43,6 @@ target 'mobile' do
 
   # Automatically detect installed unimodules
   use_unimodules!
+  pod 'RNVectorIcons', :path => '../node_modules/react-native-vector-icons'
+
 end
