@@ -6,7 +6,7 @@ import NavigationService from '~/services/navigation';
 import AuthActions from '../ducks/auth';
 
 export function* init() {
-  const token = yield call(['AsyncStorage', 'getItem'], '@Omni:token');
+  const token = yield call([AsyncStorage, 'getItem'], '@Omni:token');
 
   if (token) {
     yield put(AuthActions.signInSuccess(token));
