@@ -7,6 +7,7 @@ import SideMenu from 'react-native-side-menu';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
 import TeamSwitcher from '~/components/TeamSwitcher';
+import Projects from '~/components/Projects';
 
 import styles from './styles';
 
@@ -33,6 +34,8 @@ const Main = ({ activeTeam }) => {
               <Icon name="group" size={24} color="#fff" />
             </TouchableOpacity>
           </View>
+
+          <Projects />
         </View>
       </SideMenu>
     </View>
