@@ -18,7 +18,7 @@ Front-end and Mobile need different tools and configuration. You should have [YA
 
 - Front-end: Inside 'frontend' folder, run ``` yarn && yarn start``` to install all dependencies and start the project at port 3000.
 
-- Mobile: Inside 'mobile' folder, run ``` expo start```and choose the simulator (iOS or Android) which you would like to run the project.
+- Mobile: Inside 'mobile' folder, run ``` expo start``` and choose the simulator (iOS or Android) which you would like to run the project.
 
 ### Web
 
