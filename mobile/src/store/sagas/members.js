@@ -1,5 +1,4 @@
 import { call, put } from 'redux-saga/effects';
-import { actions as toastrActions } from 'react-redux-toastr';
 import api from '~/services/api';
 
 import MembersActions from '../ducks/members';
@@ -13,33 +12,17 @@ export function* getMembers() {
 export function* updateMember({ id, roles }) {
   try {
     yield call(api.put, `members/${id}`, { roles: roles.map((role) => role.id) });
-    yield put(toastrActions.add({
-      type: 'success',
-      title: 'Member updated',
-      message: 'The member was updated successfully',
-    }));
+    console.log('Success');
   } catch (err) {
-    yield put(toastrActions.add({
-      type: 'error',
-      title: 'Operation error',
-      message: 'We had some problem to update the member for you. Try again',
-    }));
+    console.log('error');
   }
 }
 
 export function* inviteMember({ email }) {
   try {
     yield call(api.post, 'invites', { invites: [email] });
-    yield put(toastrActions.add({
-      type: 'success',
-      title: 'Invitation sent',
-      message: 'We sent an email to the user to join the team',
-    }));
+    console.log('Success')
   } catch (err) {
-    yield put(toastrActions.add({
-      type: 'error',
-      title: 'Operation error',
-      message: 'We had some problem to invite the member for you. Try again',
-    }));
+    console.log('Error');
   }
 }
