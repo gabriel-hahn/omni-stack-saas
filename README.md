@@ -12,13 +12,13 @@ You should have [NodeJS](https://nodejs.org/en/), [Docker](https://www.docker.co
 docker container run -v $(pwd)/dtbase:/var/lib/postgresql/data -e POSTGRES_USER=postgres -e POSTGRES_PASSWORD=docker -e POSTGRES_DB=adonis -p 7777:5432 postgres
 ```
 
-- Inside 'backend' folder, run ```sh npm install && npm run start ``` to install all dependecies and start the project locally.
+- Inside 'backend' folder, run ``` npm install && npm run start ``` to install all dependecies and start the project locally.
 
 Front-end and Mobile need different tools and configuration. You should have [YARN](https://yarnpkg.com/) (or NPM as installed before) and [React CLI](https://pt-br.reactjs.org/docs/create-a-new-react-app.html#create-react-app) (create-react-app) and [Expo](https://expo.io/) (Mobile).
 
-- Front-end: Inside 'frontend' folder, run ```sh yarn && yarn start``` to install all dependencies and start the project at port 3000.
+- Front-end: Inside 'frontend' folder, run ``` yarn && yarn start``` to install all dependencies and start the project at port 3000.
 
-- Mobile: Inside 'mobile' folder, run ```sh expo start```and choose the simulator (iOS or Android) which you would like to run the project.
+- Mobile: Inside 'mobile' folder, run ``` expo start```and choose the simulator (iOS or Android) which you would like to run the project.
 
 ### Web
 
