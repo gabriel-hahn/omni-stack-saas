@@ -5,6 +5,8 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
+import NewTeam from '~/components/NewTeam';
+
 import TeamsActions from '~/store/ducks/teams';
 import styles from './styles';
 
@@ -19,14 +21,23 @@ class TeamSwitcher extends Component {
     }).isRequired
   };
 
+  state = {
+    isModalOpen: false,
+  };
+
   componentDidMount() {
     const { getTeamsRequest } = this.props;
 
     getTeamsRequest();
   }
 
+  toggleModalOpen = () => {
+    this.setState({ isModalOpen: !this.state.isModalOpen });
+  };
+
   render() {
     const { teams, selectTeam } = this.props;
+    const { isModalOpen } = this.state;
 
     return (
       <View style={styles.container}>
@@ -41,9 +52,11 @@ class TeamSwitcher extends Component {
           </TouchableOpacity>
         ))}
 
-        <TouchableOpacity style={styles.newTeam} onPress={() => { }}>
+        <TouchableOpacity style={styles.newTeam} onPress={this.toggleModalOpen}>
           <Icon name="add" size={24} color="#999" />
         </TouchableOpacity>
+
+        <NewTeam visible={isModalOpen} onRequestClose={this.toggleModalOpen} />
       </View>
     );
   }

@@ -7,7 +7,7 @@ import styles from './styles';
 
 const Modal = ({ visible, children, onRequestClose }) => (
   <RNModal visible={visible} animationType="slide" transparent onRequestClose={onRequestClose}>
-    <KeyboardAvoidingView behavior={Platform.OS === 'ios' ? 'padding' : null}>
+    <KeyboardAvoidingView style={styles.container} behavior={Platform.OS === 'ios' ? 'padding' : null}>
       <View style={styles.content}>
         {children}
       </View>
