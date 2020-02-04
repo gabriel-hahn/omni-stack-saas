@@ -6,9 +6,15 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 
 import ProjectsActions from '~/store/ducks/projects';
 
+import NewProject from '~/components/NewProject';
+
 import styles from './styles';
 
 class Projects extends Component {
+  state = {
+    isModalOpen: false,
+  };
+
   componentDidMount() {
     const { getProjectsRequest, activeTeam } = this.props;
 
@@ -17,8 +23,13 @@ class Projects extends Component {
     }
   }
 
+  toggleModalOpen = () => {
+    this.setState({ isModalOpen: !this.state.isModalOpen });
+  };
+
   render() {
     const { projects, activeTeam } = this.props;
+    const { isModalOpen } = this.state;
 
     if (!activeTeam) return null;
 
@@ -35,9 +46,11 @@ class Projects extends Component {
           )}
         />
 
-        <TouchableOpacity style={styles.newProjectButton} onPress={() => { }}>
+        <TouchableOpacity style={styles.newProjectButton} onPress={this.toggleModalOpen}>
           <Icon name="add" size={28} color="#FFF" />
         </TouchableOpacity>
+
+        <NewProject visible={isModalOpen} onRequestClose={this.toggleModalOpen} />
       </View>
     );
   }
