@@ -14,7 +14,11 @@ class NewTeam extends Component {
   };
 
   handleSubmit = () => {
+    const { createTeamRequest, onRequestClose } = this.props;
+    const { newTeam } = this.state;
 
+    createTeamRequest(newTeam);
+    onRequestClose();
   };
 
   render() {
