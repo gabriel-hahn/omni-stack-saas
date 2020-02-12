@@ -20,9 +20,7 @@ Front-end and Mobile need different tools and configuration. You should have [YA
 
 - Mobile: Inside <b>mobile</b> folder, run ``` expo start``` and choose the simulator (iOS or Android) which you would like to run the project.
 
-### Web
-
-### Mobile
+### Demo
 
 ## Authors
 
