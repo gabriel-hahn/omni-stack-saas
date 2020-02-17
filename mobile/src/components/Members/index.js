@@ -6,6 +6,7 @@ import Icon from 'react-native-vector-icons/MaterialIcons';
 
 import InviteMember from '~/components/InviteMember';
 import RoleUpdater from '~/components/RoleUpdater';
+import Can from '~/components/Can';
 
 import MembersActions from '~/store/ducks/members';
 
@@ -48,15 +49,19 @@ class Members extends Component {
             <View style={styles.memberContainer}>
               <Text style={styles.memberName}>{item.user.name}</Text>
 
-              <TouchableOpacity hitSlop={{ top: 5, bottom: 5, left: 5, right: 5 }} onPress={this.toggleRoleModal}>
-                <Icon name="settings" size={20} color="#b0b0b0" />
-              </TouchableOpacity>
+              <Can checkRole="administrator">
+                <TouchableOpacity hitSlop={{ top: 5, bottom: 5, left: 5, right: 5 }} onPress={this.toggleRoleModal}>
+                  <Icon name="settings" size={20} color="#b0b0b0" />
+                </TouchableOpacity>
+              </Can>
             </View>
           )}
           ListFooterComponent={() => (
-            <TouchableOpacity style={styles.button} onPress={() => this.toggleInviteModal(item)}>
-              <Text style={styles.buttonText}>Invite</Text>
-            </TouchableOpacity>
+            <Can checkPermission="invites_create">
+              <TouchableOpacity style={styles.button} onPress={() => this.toggleInviteModal(item)}>
+                <Text style={styles.buttonText}>Invite</Text>
+              </TouchableOpacity>
+            </Can>
           )}
         />
 
@@ -64,7 +69,9 @@ class Members extends Component {
           <RoleUpdater visible={isRoleModalOpen} onRequestClose={this.toggleRoleModal} member={memberEdit} />
         )}
 
-        <InviteMember visible={isInviteModalOpen} onRequestClose={this.toggleInviteModal} />
+        <Can checkPermission="invites_create">
+          <InviteMember visible={isInviteModalOpen} onRequestClose={this.toggleInviteModal} />
+        </Can>
       </View>
     );
   }
