@@ -1,4 +1,5 @@
 import { call, put } from 'redux-saga/effects';
+import { ToastActionsCreators } from 'react-native-redux-toast';
 import api from '~/services/api';
 
 import MembersActions from '../ducks/members';
@@ -12,17 +13,17 @@ export function* getMembers() {
 export function* updateMember({ id, roles }) {
   try {
     yield call(api.put, `members/${id}`, { roles: roles.map((role) => role.id) });
-    console.log('Success');
+    yield put(ToastActionsCreators.displayInfo('Member updated'));
   } catch (err) {
-    console.log('error');
+    yield put(ToastActionsCreators.displayError('Error during the updating process'));
   }
 }
 
 export function* inviteMember({ email }) {
   try {
     yield call(api.post, 'invites', { invites: [email] });
-    console.log('Success')
+    yield put(ToastActionsCreators.displayInfo('Member invited'));
   } catch (err) {
-    console.log('Error');
+    yield put(ToastActionsCreators.displayError('Error during the invitation process'));
   }
 }
