@@ -1,5 +1,6 @@
 import React from 'react';
 import { Provider } from 'react-redux';
+import { registerRootComponent } from 'expo';
 import { Toast } from 'react-native-redux-toast';
 
 import '~/config/StatusBarConfig';
